@@ -2,6 +2,7 @@ package src.com.excercise.blackjack.service;
 
 import src.com.excercise.blackjack.constants.BlackJackConstants;
 import src.com.excercise.blackjack.model.Deck;
+
 import java.util.Scanner;
 
 public class BlackJackService {
@@ -19,7 +20,7 @@ public class BlackJackService {
         playingDeck.shuffleDeck();
     }
 
-    public int gamePlay(double playerMoney, int userInput) {
+    public int gamePlay(double playerMoney, Scanner userInput) {
         //initialize blackjack game
 
         if(playerMoney <= 0)
@@ -30,7 +31,7 @@ public class BlackJackService {
             //play on!
             //Take the players bet
             System.out.println("You have $" + playerMoney + ", how much would you like to bet?");
-            double playerBet = Double.valueOf(userInput);
+            double playerBet = userInput.nextDouble();
             if(playerBet > playerMoney){
                 System.out.println("You cannot bet more than you have. Please check");
                 break;
@@ -58,7 +59,7 @@ public class BlackJackService {
 
                 //What does the player want to do?
                 System.out.println("Would like to Hit (enter 1) or Stand (enter 2)?:");
-                int response = userInput;
+                int response = userInput.nextInt();
                 //Hit
                 if(response == 1){
                     playerDeck.draw(playingDeck);

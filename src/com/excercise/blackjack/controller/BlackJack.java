@@ -1,7 +1,7 @@
 package src.com.excercise.blackjack.controller;
 
-import src.com.excercise.blackjack.model.Deck;
 import src.com.excercise.blackjack.service.BlackJackService;
+
 import java.util.Scanner;
 
 public class BlackJack {
@@ -15,7 +15,7 @@ public class BlackJack {
         Scanner userInput = new Scanner(System.in);
         BlackJackService service = new BlackJackService();
         //Game Execution
-        int status = service.gamePlay( playerMoney, userInput.nextInt());
+        int status = service.gamePlay( playerMoney, userInput);
         System.out.println("Game over! :(");
     }
 }

@@ -1,9 +1,10 @@
 package test.com.excercise.blackjack;
+
 import org.junit.Test;
 import src.com.excercise.blackjack.service.BlackJackService;
 
+import org.powermock.api.mockito.PowerMockito;
 import java.util.Scanner;
-
 
 public class BlackJackTest {
 
@@ -11,14 +12,18 @@ public class BlackJackTest {
     public void gamePlayTestWrongValue(){
         int mockPlayerMoney = 0;
         BlackJackService service = new BlackJackService();
-        assert service.gamePlay(mockPlayerMoney, 0) == 1001;
+        Scanner userInput = new Scanner("0");
+        assert service.gamePlay(mockPlayerMoney, userInput) == 1001;
     }
 
     @Test
     public void gamePlayTestCorrectValue(){
         int mockPlayerMoney = 100;
         BlackJackService service = new BlackJackService();
-        assert service.gamePlay(mockPlayerMoney, 1) == 1000;
+        //PowerMockito.mockStatic(Scanner.class);
+        Scanner userInput = PowerMockito.mock(Scanner.class);
+        PowerMockito.when(userInput.nextInt()).thenReturn(1);
+        assert service.gamePlay(mockPlayerMoney, userInput) == 1000;
     }
 
 }
