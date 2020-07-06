@@ -1,5 +1,7 @@
 package src.com.excercise.blackjack.model;
 
+import src.com.excercise.blackjack.constants.Value;
+
 public class Card {
 
     private Suit suit;

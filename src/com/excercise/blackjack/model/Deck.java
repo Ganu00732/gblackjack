@@ -1,5 +1,7 @@
 package src.com.excercise.blackjack.model;
 
+import src.com.excercise.blackjack.constants.Value;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -104,7 +106,7 @@ public class Deck {
             moveToDeck.addCard(this.getCard(i));
         }
         for(int i=0 ; i < fullDeckSize; i++){
-            moveToDeck.removeCard(0);
+            this.removeCard(0);
         }
     }
 

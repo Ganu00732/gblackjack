@@ -1,16 +1,36 @@
 package src.com.excercise.blackjack.service;
 
+import src.com.excercise.blackjack.constants.BlackJackConstants;
 import src.com.excercise.blackjack.model.Deck;
 import java.util.Scanner;
 
 public class BlackJackService {
-    public void gamePlay(Deck playingDeck, Deck playerDeck, Deck dealerDeck,
-                                 double playerMoney, Scanner userInput) {
+
+    Deck playerDeck = null;
+    Deck dealerDeck = null;
+    Deck playingDeck = null;
+
+    private void initialise(){
+        this.playerDeck = new Deck();
+        this.dealerDeck = new Deck();
+        this.playingDeck = new Deck();
+
+        playingDeck.createFullDeck();
+        playingDeck.shuffleDeck();
+    }
+
+    public int gamePlay(double playerMoney, int userInput) {
+        //initialize blackjack game
+
+        if(playerMoney <= 0)
+            return BlackJackConstants.INVALID_MONEY;
+
+        this.initialise();
         while(playerMoney > 0){
             //play on!
             //Take the players bet
             System.out.println("You have $" + playerMoney + ", how much would you like to bet?");
-            double playerBet = userInput.nextDouble();
+            double playerBet = Double.valueOf(userInput);
             if(playerBet > playerMoney){
                 System.out.println("You cannot bet more than you have. Please check");
                 break;
@@ -38,12 +58,12 @@ public class BlackJackService {
 
                 //What does the player want to do?
                 System.out.println("Would like to Hit (enter 1) or Stand (enter 2)?:");
-                int response = userInput.nextInt();
+                int response = userInput;
                 //Hit
                 if(response == 1){
-                    playerDeck.draw(playerDeck);
+                    playerDeck.draw(playingDeck);
                     System.out.println("You Drew card: " + playerDeck.
-                            getCard(playerDeck.deckSize() - 1).toString());
+                            getCard(playerDeck.deckSize() -1).toString());
                     //Bust if > 21
                     if(playerDeck.cardsValue() > 21){
                         System.out.println("Bust.. Currently valued at : " + playerDeck.cardsValue());
@@ -102,7 +122,7 @@ public class BlackJackService {
             playerDeck.moveAllToDeck(playingDeck);
             dealerDeck.moveAllToDeck(playingDeck);
             System.out.println("End of hand..");
-
         }
+        return BlackJackConstants.SUCCESS;
     }
 }
